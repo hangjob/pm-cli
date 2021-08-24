@@ -3,15 +3,40 @@ const path = require('path')
 const chalk = require('chalk')
 const ora = require('ora')
 const fs = require('fs')
+const cheerio = require('cheerio')
 
 const log = (str) => {
     console.log(chalk.blue(str))
 }
 
-module.exports = function ({ targetDir, answers }) {
+const getHtml = ({ targetDir, answers }) => {
+    const _path = path.join(targetDir, 'index.html')
+    fs.readFile(_path, function (err, data) {
+        if (err) {
+            return
+        }
+        else {
+            let person = data.toString()
+            let $ = cheerio.load(person)
+            $('meta[name="author"]').attr('content', answers.author)
+            $('meta[name="description"]').attr('description', answers.description)
+            let str = $.html()
+            fs.writeFile(_path, str, function (err) {
+                if (err) {
+                    return
+                }
+                else {
+                    log(`🎉  模板创建完成...`)
+                    console.log()
+                    log(` $ cd ${targetDir}`)
+                }
+            })
+        }
+    })
+}
+
+module.exports = async function ({ targetDir, answers }) {
     const _path = path.join(process.cwd(), answers.template)
-    copyFile(_path, targetDir)
-    log(`🎉  模板创建完成...`)
-    console.log()
-    log(` $ cd ${targetDir}`)
+    await copyFile(_path, targetDir)
+    getHtml({ targetDir, answers })
 }
