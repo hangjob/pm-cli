@@ -1,3 +1,14 @@
+# pm-cli
+>品茗前端脚手架
+
+## 包含功能
+- 注入全局pm-cli
+- 提示安装指定模板
+- 修改package.json属性
+- 更多功能还在扩展中...
+
+>node 赋予了JavaScript更强大的功能，我相信我能用他做出更多的事情，[Node随记](https://www.vipbic.com/archives.html?tid=22)
+
 ## generator
 
 > 各个功能的模板，通过 generator 可以往 package.json 注入依赖字段，或者添加文件到项目中
