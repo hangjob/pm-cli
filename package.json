@@ -1,15 +1,26 @@
 {
   "name": "pm-cli",
   "version": "1.0.0",
-  "description": "pm-cli",
+  "description": "pm-cli前端脚手架",
   "main": "index.js",
   "bin": {
     "pm-cli": "bin.js"
   },
+  "author": {
+    "name": "yanghang",
+    "email": "470193837@qq.com"
+  },
+  "bugs": {
+    "url": "https://github.com/hangjob/pm-cli/issues",
+    "email": "470193837@qq.com"
+  },
+  "keywords": [
+    "vue",
+    "pm-cli"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "yanghang",
   "license": "ISC",
   "devDependencies": {
     "chalk": "^4.1.2",
