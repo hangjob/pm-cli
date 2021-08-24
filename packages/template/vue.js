@@ -1,4 +1,4 @@
-const { copyFile } = require('../utils/index')
+const { copyFile } = require('../../utils/index')
 const path = require('path')
 const chalk = require('chalk')
 const ora = require('ora')

@@ -1,9 +1,12 @@
+const path = require('path')
 // 抽象模板
-// vue 模板
-const tempVue = require('./vue') // 默认
-// html 模板
-const tempHtml = require('./html')
-// vue-pm-ui 模板
-const tempVuePmUi = require('./vue-pm-ui')
-
-const template = [];
+const config = require('./config')
+module.exports = function ({ targetDir, answers }) {
+    config.map(item => {
+        if (item.dir === answers.template) {
+            const _path = path.join(process.cwd(), item.method)
+            const templateAction = require(_path)
+            templateAction({ targetDir, answers })
+        }
+    })
+}
