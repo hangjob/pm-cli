@@ -8,24 +8,19 @@ const cheerio = require('cheerio')
 const log = (str) => {
     console.log(chalk.blue(str))
 }
-
-const getHtml = ({ targetDir, answers }) => {
+// 重写html
+const rewriteHtml = ({ targetDir, answers }) => {
     const _path = path.join(targetDir, 'index.html')
     fs.readFile(_path, function (err, data) {
-        if (err) {
-            return
-        }
-        else {
+        if (!err) {
             let person = data.toString()
             let $ = cheerio.load(person)
             $('meta[name="author"]').attr('content', answers.author)
-            $('meta[name="description"]').attr('description', answers.description)
+            $('meta[name="description"]').
+                attr('description', answers.description)
             let str = $.html()
             fs.writeFile(_path, str, function (err) {
-                if (err) {
-                    return
-                }
-                else {
+                if (!err) {
                     log(`🎉  模板创建完成...`)
                     console.log()
                     log(` $ cd ${targetDir}`)
@@ -38,5 +33,5 @@ const getHtml = ({ targetDir, answers }) => {
 module.exports = async function ({ targetDir, answers }) {
     const _path = path.join(process.cwd(), answers.template)
     await copyFile(_path, targetDir)
-    getHtml({ targetDir, answers })
+    rewriteHtml({ targetDir, answers })
 }

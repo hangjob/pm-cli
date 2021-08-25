@@ -21,7 +21,8 @@
         <ul>
             <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
             <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-            <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a>
+            <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank"
+                   rel="noopener">vue-devtools</a>
             </li>
             <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
             <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
@@ -30,9 +31,9 @@
         <ul>
             <li><a href="https://lodash.com/" target="_blank" rel="noopener">lodash</a></li>
             <li><a href="https://api.jquery.com/" target="_blank" rel="noopener">jquery</a></li>
-            <li><a href="http://hilongjw.github.io/vue-progressbar/" target="_blank" rel="noopener">vue-progressbar</a></li>
-            <li><a href="http://axios-js.com/zh-cn/docs/index.html" target="_blank" rel="noopener">axios</a></li>
-            <li><a href="https://dayjs.gitee.io/zh-CN/" target="_blank" rel="noopener">Day.js</a></li>
+            <li><a href="//hilongjw.github.io/vue-progressbar/" target="_blank" rel="noopener">vue-progressbar</a></li>
+            <li><a href="//axios-js.com/zh-cn/docs/index.html" target="_blank" rel="noopener">axios</a></li>
+            <li><a href="https://dayjs.gitee.io/zh-CN/" target="_blank" rel="noopener">day.js</a></li>
         </ul>
         <h3>数据图表</h3>
         <ul>
