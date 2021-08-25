@@ -26,11 +26,13 @@ function copyFile (sourcePath, targetPath) {
             isExist(newTargetPath)
             copyFile(newSourcePath, newTargetPath)
         }
-        else {
-            // 是文件则 拷贝
-            let readable = fs.createReadStream(newSourcePath)//创建读取流
-            let writable = fs.createWriteStream(newTargetPath)//创建写入流
-            readable.pipe(writable)
+        else { // 是文件则 拷贝
+            // 这是个异步-细节带研究
+            // let readable = fs.createReadStream(newSourcePath)//创建读取流
+            // let writable = fs.createWriteStream(newTargetPath)//创建写入流
+            // readable.pipe(writable)
+            // 同步写法
+            fs.writeFileSync(newTargetPath, fs.readFileSync(newSourcePath))
         }
     })
 }
