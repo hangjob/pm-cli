@@ -11,22 +11,20 @@ const templateNames = [
     },
     {
         name: '安装品茗库vue3.0开发模板',
-        dir: '/templates/vue-pm-ui',
+        dir: '/templates/vue3',
+        method: '/packages/template/vue-pm-ui.js',
+    },
+    {
+        name: '安装品茗库App开发模板',
+        dir: '/templates/app',
         method: '/packages/template/vue-pm-ui.js',
     },
 ]
 
 const templateVuex = [
-    { name: 'vuex', value: '/src/store/vuex.js' },
-    {
-        name: 'vuex && vuex-persistedstate',
-        value: '/src/store/vuex-persistedstate.js',
-    },
-    {
-        name: 'vuex && namespace',
-        value: '/src/store/namespace.js',
-        modules: '/src/store/modules',
-    },
+    {name: 'vuex', value: '/src/store/vuex'},
+    {name: 'vuex-persistedstate', value: '/src/store/vuex-persistedstate',},
+    {name: 'namespace', value: '/src/store/vuex-namespace',}
 ]
 
 module.exports = {

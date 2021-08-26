@@ -1,10 +1,10 @@
-const { copyFile, deleteDir, moveFile } = require('../../utils/index')
+const {copyFile, deleteDir, moveFile} = require('../../utils/index')
 const path = require('path')
 const chalk = require('chalk')
 const ora = require('ora')
 const fs = require('fs')
 const mkdirp = require('mkdirp')
-const { templateVuex } = require('../config')
+const {templateVuex} = require('../config')
 
 const log = (str) => {
     console.log(chalk.blue(str))
@@ -12,7 +12,7 @@ const log = (str) => {
 
 // 重写package.json
 // 修改package.json，可以在这做扩充，比如.eslint,.babel ...
-const rewritePackage = ({ targetDir, answers }) => {
+const rewritePackage = ({targetDir, answers}) => {
     const packPath = path.join(targetDir, 'package.json')
 
     let data = fs.readFileSync(packPath)
@@ -26,7 +26,7 @@ const rewritePackage = ({ targetDir, answers }) => {
 }
 
 // 添加pm-ui
-const addPmui = ({ targetDir }) => {
+const addPmui = ({targetDir}) => {
     const mainPath = path.join(targetDir, 'src', 'main.js')
     const data = fs.readFileSync(mainPath, 'utf8')
     let person = data.split('\n')
@@ -38,35 +38,33 @@ const addPmui = ({ targetDir }) => {
 }
 
 // 添加vuex
-const addVuex = ({ targetDir, answers }) => {
+const addVuex = ({targetDir, answers}) => {
     const mainPath = path.join(targetDir, 'src', 'store')
     deleteDir(mainPath)
-    let selecteData = templateVuex.filter(item => item.value === answers.vuex)[0];
-    console.log(selecteData)
-    // fs.mkdirSync(mainPath)
-    // const _path = path.join(process.cwd(), answers.template, selecteData.value)
-    // let toVuexPath = path.join(targetDir, selecteData.value)
-    // moveFile(_path, toVuexPath)
-    // if (selecteData.modules) { // 如果有其他文件
-    //     let modules = path.join(process.cwd(), answers.template,
-    //         selecteData.modules)
-    //     let targetModules = path.join(mainPath, 'modules')
-    //     fs.mkdirSync(targetModules)
-    //     copyFile(modules, targetModules)
-    // }
-    // fs.renameSync(toVuexPath, path.join(mainPath, 'index.js')) // 重命名
+    if (answers.vuex.length === 3) {
+        const _path = path.join(process.cwd(), answers.template, 'src', 'store', 'vuex-namespace-persistedstate');
+        mkdirp.sync(mainPath)
+        copyFile(_path, mainPath)
+        return;
+    }
+    if (answers.vuex.length) {
+        let selectData = answers.vuex[answers.vuex.length - 1];
+        const _path = path.join(process.cwd(), answers.template, selectData);
+        mkdirp.sync(mainPath)
+        copyFile(_path, mainPath)
+    }
 }
 
-module.exports = function ({ targetDir, answers }) {
+module.exports = function ({targetDir, answers}) {
     const _path = path.join(process.cwd(), answers.template)
     copyFile(_path, targetDir)
-    rewritePackage({ targetDir, answers })
+    rewritePackage({targetDir, answers})
 
     if (answers.pmui) {
-        addPmui({ targetDir })
+        addPmui({targetDir})
     }
 
-    addVuex({ targetDir, answers })
+    addVuex({targetDir, answers})
 
     log(`🎉  模板创建完成...`)
     console.log()
