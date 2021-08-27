@@ -12,12 +12,12 @@ const templateNames = [
     {
         name: '安装品茗库vue3.0开发模板',
         dir: '/templates/vue3',
-        method: '/packages/template/vue-pm-ui.js',
+        method: '/packages/template/vue3.js',
     },
     {
         name: '安装品茗库App开发模板',
         dir: '/templates/app',
-        method: '/packages/template/vue-pm-ui.js',
+        method: '/packages/template/app.js',
     },
 ]
 

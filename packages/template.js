@@ -4,9 +4,10 @@ const { templateNames } = require('./config')
 module.exports = function ({ targetDir, answers }) {
     templateNames.map(item => {
         if (item.dir === answers.template) {
-            const _path = path.join(process.cwd(), item.method)
+            let rootPath = path.dirname(require.main.filename); 
+            const _path = path.join(rootPath, item.method)
             const templateAction = require(_path)
-            templateAction({ targetDir, answers, sourceDir: item.dir })
+            templateAction({ targetDir, answers})
         }
     })
 }

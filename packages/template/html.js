@@ -31,7 +31,8 @@ const rewriteHtml = ({ targetDir, answers }) => {
 }
 
 module.exports = async function ({ targetDir, answers }) {
-    const _path = path.join(process.cwd(), answers.template)
+    let rootPath = path.dirname(require.main.filename); 
+    const _path = path.join(rootPath, answers.template)
     await copyFile(_path, targetDir)
     rewriteHtml({ targetDir, answers })
 }
