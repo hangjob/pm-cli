@@ -1,7 +1,7 @@
 <template>
     <div class="hello">
         <h1>欢迎使用pm-cli前端脚手架</h1>
-        <p>模板名称：安装普通html模板</p>
+        <p>模板名称：安装品茗库vue2.0开发模板</p>
         <h3>CLI-自带插件</h3>
         <ul>
             <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank"

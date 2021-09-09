@@ -34,7 +34,8 @@
         "inquirer": "^8.1.2",
         "listr": "^0.14.3",
         "mkdirp": "^1.0.4",
-        "ora": "^5.4.1"
+        "ora": "^5.4.1",
+        "silly-datetime": "^0.1.2"
     },
     "engines": {
         "node": ">=8.9"
