@@ -59,14 +59,13 @@ const rewriteHtml = ({ targetDir, answers }) => {
     const package = JSON.parse(fs.readFileSync(packPath).toString())
     const data = fs.readFileSync(htmlPath, 'utf8')
     const $ = cheerio.load(data)
-    $('head').append(`<meta name="des" content="${answers.description}"/>`)
     $('head').append(`<meta name="author" content="${answers.author}"/>`)
-    $('head').
-        append(
-            `<meta name="version" content="pm-cli.version.${package.version}"/>`)
+    $('head').append(`<meta name="des" content="${answers.description}"/>`)
+    $('head').append(`<meta name="version" content="pm-cli.version.${package.version}"/>`)
     const time = sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss')
     $('head').append(`<meta name="time" content="${time}"/>`)
-    console.log($.html())
+    let str = $.html();
+    fs.writeFileSync(htmlPath, str)
 }
 
 // 重写main.js
