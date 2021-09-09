@@ -15,7 +15,10 @@ module.exports = async function (name) {
                 key: i,
                 name: v.name,
                 value: v.dir,
-            })),
+                hide: v.hide
+            })).filter((res)=>{
+                return res.hide === true ? false : true;
+            }),
         },
         {
             type: 'confirm',

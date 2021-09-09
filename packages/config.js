@@ -24,12 +24,17 @@ const templateNames = [
         dir: '/templates/app',
         method: '/packages/template/bigdata.js',
     },
+    {
+        name: '安装品茗库vue3.0-typescript开发模板',
+        dir: '/templates/vue3',
+        method: '/packages/template/vue3.js',
+    },
 ]
 
 const templateVuex = [
-    {name: 'vuex', value: '/src/store/vuex'},
-    {name: 'vuex-persistedstate', value: '/src/store/vuex-persistedstate',},
-    {name: 'namespace', value: '/src/store/vuex-namespace',}
+    { name: 'vuex', value: '/src/store/vuex' },
+    { name: 'vuex-persistedstate', value: '/src/store/vuex-persistedstate' },
+    { name: 'namespace', value: '/src/store/vuex-namespace' },
 ]
 
 module.exports = {
