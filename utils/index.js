@@ -27,7 +27,7 @@ function copyFile (sourcePath, targetPath) {
             copyFile(newSourcePath, newTargetPath)
         }
         else { // 是文件则 拷贝
-            // 这是个异步管道写入-细节带研究
+            // 这是个管道写入-细节带研究
             // let readable = fs.createReadStream(newSourcePath)//创建读取流
             // let writable = fs.createWriteStream(newTargetPath)//创建写入流
             // readable.pipe(writable)

@@ -19,6 +19,11 @@ const templateNames = [
         dir: '/templates/app',
         method: '/packages/template/app.js',
     },
+    {
+        name: '安装品茗库大数据开发模板',
+        dir: '/templates/app',
+        method: '/packages/template/bigdata.js',
+    },
 ]
 
 const templateVuex = [

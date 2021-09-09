@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import cart from './modules/cart'
+import user from './modules/user'
 import products from './modules/products'
 import createLogger from 'vuex/dist/logger' // vuex日志
 
@@ -10,7 +10,7 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
     modules: {
-        cart,
+        user,
         products
     },
     strict: debug,

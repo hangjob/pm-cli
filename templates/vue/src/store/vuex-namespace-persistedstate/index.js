@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import cart from './modules/cart'
+import user from './modules/user'
 import products from './modules/products'
 import createPersistedState from 'vuex-persistedstate' // 数据持久化
 import SecureLS from 'secure-ls' // 数据加密
@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
 
-const cartState = createPersistedState({
+const userState = createPersistedState({
     key: "state",
     storage: {
         getItem: key => ls.get(key),
@@ -19,21 +19,21 @@ const cartState = createPersistedState({
     },
     reducer: (value) => {
         let data = {
-            cart: {},
+            user: {},
         };
-        data.cart.id = value.cart.id; // 只存储指定的值
+        data.user.id = value.user.id; // 只存储指定的值
         return data;
     },
 });
 
 const plugins = [
     createLogger(),
-    cartState,
+    userState,
 ];
 
 export default new Vuex.Store({
     modules: {
-        cart,
+        user,
         products
     },
     plugins,

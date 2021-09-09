@@ -1,118 +1,137 @@
-const {copyFile, deleteDir, moveFile} = require("../../utils/index");
-const {executeCommand} = require('../../utils/bash')
-const path = require("path");
-const chalk = require("chalk");
-const ora = require("ora");
-const fs = require("fs");
-const mkdirp = require("mkdirp");
-const rootPath = path.dirname(require.main.filename);
+const { copyFile, deleteDir, moveFile } = require('../../utils/index')
+const install = require('../../utils/bash')
+const path = require('path')
+const chalk = require('chalk')
+const ora = require('ora')
+const fs = require('fs')
+const mkdirp = require('mkdirp')
+const rootPath = path.dirname(require.main.filename)
 
 const log = (str) => {
-    console.log(chalk.blue(str));
-};
+    console.log(chalk.blue(str))
+}
+
+const installPlugins = [];
 
 const getFileLine = (arr) => {
-    let line = 0;
+    let line = 0
     arr.map((item, index) => {
         if (item.search('import') != -1) {
-            line = index + 1;
+            line = index + 1
         }
     })
-    return line;
+    return line
 }
+
+// 返回行数
 const getFileRender = (arr) => {
-    let line = 0;
+    let line = 0
     arr.map((item, index) => {
         if (item.search('render') != -1) {
-            line = index + 1;
+            line = index + 1
         }
     })
-    return line;
+    return line
 }
 
 // 重写package.json
 // 修改package.json，可以在这做扩充，比如.eslint,.babel ...
-const rewritePackage = ({targetDir, answers}) => {
-    const packPath = path.join(targetDir, "package.json");
+const rewritePackage = ({ targetDir, answers, projectName }) => {
+    const packPath = path.join(targetDir, 'package.json')
 
-    let data = fs.readFileSync(packPath);
-    let person = data.toString(); //将二进制的数据转换为字符串
-    person = JSON.parse(person); //将字符串转换为json对象
-    person.name = answers.author;
-    person.description = answers.description;
+    let data = fs.readFileSync(packPath)
+    let person = data.toString() //将二进制的数据转换为字符串
+    person = JSON.parse(person) //将字符串转换为json对象
+    person.name = answers.projectName
+    person.author = answers.author
+    person.description = answers.description
 
-    let str = JSON.stringify(person);
-    fs.writeFileSync(packPath, str);
-};
+    let str = JSON.stringify(person)
+    fs.writeFileSync(packPath, str)
+}
 
 // 添加pm-ui
-const rewriteMain = ({targetDir, answers}) => {
-    const mainPath = path.join(targetDir, "src", "main.js");
-    const data = fs.readFileSync(mainPath, "utf8");
-    let person = data.split("\n");
+const rewriteMain = ({ targetDir, answers }) => {
+    const mainPath = path.join(targetDir, 'src', 'main.js')
+    const data = fs.readFileSync(mainPath, 'utf8')
+    let person = data.split('\n')
     const setLine = (str) => {
-        person.splice(getFileLine(person), 0, str);
+        person.splice(getFileLine(person), 0, str)
     }
     if (answers.pmui) {
         setLine('import "pming-ui/style/index.less"')
         setLine('import PmUI from "pming-ui"')
-        setLine("Vue.use(PmUI)")
+        setLine('Vue.use(PmUI)')
+        installPlugins.push('pming-ui')
     }
     if (answers.router) {
         setLine('import router from "./router"')
         person.splice(getFileRender(person), 0, 'router,')
+        installPlugins.push('vue-router')
     }
     if (answers.vuex.length) {
         setLine('import store from "./store"')
         person.splice(getFileRender(person), 0, 'store,')
+        installPlugins.push('vuex')
+        installPlugins.push('secure-ls')
+        installPlugins.push('vuex-persistedstate')
     }
-    let str = person.join("\n");
-    fs.writeFileSync(mainPath, str, "utf8");
-};
+    let str = person.join('\n')
+    fs.writeFileSync(mainPath, str, 'utf8')
+}
 
 // 添加vuex
-const addVuex = ({targetDir, answers}) => {
-    const mainPath = path.join(targetDir, "src", "store");
-    deleteDir(mainPath);
+const addVuex = ({ targetDir, answers }) => {
+    const mainPath = path.join(targetDir, 'src', 'store')
+    deleteDir(mainPath)
 
     if (answers.vuex.length === 3) {
         const _path = path.join(
             rootPath,
             answers.template,
-            "src",
-            "store",
-            "vuex-namespace-persistedstate"
-        );
-        mkdirp.sync(mainPath);
-        copyFile(_path, mainPath);
-        return;
+            'src',
+            'store',
+            'vuex-namespace-persistedstate',
+        )
+        mkdirp.sync(mainPath)
+        copyFile(_path, mainPath)
+        return
     }
     if (answers.vuex.length) {
-        let selectData = answers.vuex[answers.vuex.length - 1];
-        const _path = path.join(rootPath, answers.template, selectData);
-        mkdirp.sync(mainPath);
-        copyFile(_path, mainPath);
+        let selectData = answers.vuex[answers.vuex.length - 1]
+        const _path = path.join(rootPath, answers.template, selectData)
+        mkdirp.sync(mainPath)
+        copyFile(_path, mainPath)
     }
-};
+}
 
 // 添加vue-router
-const addRouter = ({targetDir, answers}) => {
+const addRouter = ({ targetDir, answers }) => {
     if (!answers.router) {
-        deleteDir(path.join(targetDir, "src", "router"));
-        deleteDir(path.join(targetDir, "src", "views"));
+        deleteDir(path.join(targetDir, 'src', 'router'))
+        deleteDir(path.join(targetDir, 'src', 'views'))
     }
-};
+}
 
-module.exports = function ({targetDir, answers}) {
-    const _path = path.join(rootPath, answers.template);
-    copyFile(_path, targetDir);
-    rewritePackage({targetDir, answers});
+module.exports = function ({ targetDir, answers, projectName }) {
+    const _path = path.join(rootPath, answers.template)
+    copyFile(_path, targetDir)
+    rewritePackage({ targetDir, answers })
 
-    rewriteMain({targetDir, answers});
-    addVuex({targetDir, answers});
-    addRouter({targetDir, answers});
-    log(`🎉  模板创建完成...`);
-    console.log();
-    log(` $ cd ${targetDir}`);
-    log(` $ npm i && npm run dev`);
-};
+    rewriteMain({ targetDir, answers })
+    addVuex({ targetDir, answers })
+    addRouter({ targetDir, answers })
+    log(`🎉  模板创建完成...`)
+    console.log()
+    log(`⚙   PM-CLI正在安装依赖，需要段时间......`)
+    console.log()
+    install({ cwd: targetDir,args:installPlugins }).then(()=>{
+        console.log()
+        console.log(chalk.yellow('🎉   '), '成功创建项目:', chalk.green(answers.projectName))
+        console.log(chalk.yellow('👉   '), '可以开始使用以下命令: ')
+        console.log()
+        console.log(chalk.cyan(`$ cd ${targetDir}`))
+        console.log(chalk.cyan(`npm run serve`))
+        console.log()
+    })
+}
