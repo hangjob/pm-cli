@@ -26,8 +26,8 @@ const templateNames = [
     },
     {
         name: '安装品茗库vue3.0-typescript开发模板',
-        dir: '/templates/vue3',
-        method: '/packages/template/vue3.js',
+        dir: '/templates/vue3ts',
+        method: '/packages/template/vue3ts.js',
     },
 ]
 

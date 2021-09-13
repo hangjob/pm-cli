@@ -29,7 +29,7 @@ module.exports = {
     },
     css: {
         // 启用 CSS modules
-        modules: false,
+        requireModuleExtension: false,
         // 是否使用css分离
         extract: true,
         // 开启 CSS source maps，一般不建议开启
