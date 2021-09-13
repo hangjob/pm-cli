@@ -29,6 +29,11 @@ const templateNames = [
         dir: '/templates/vue3ts',
         method: '/packages/template/vue3ts.js',
     },
+    {
+        name: 'vite下一代脚手架',
+        dir: '',
+        method: '/packages/template/vite.js',
+    },
 ]
 
 const templateVuex = [
