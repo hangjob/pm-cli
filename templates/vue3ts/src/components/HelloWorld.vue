@@ -22,15 +22,21 @@
             </li>
             <li>
                 <a
-                    href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
+                    href="https://www.tslang.cn/index.html"
                     target="_blank"
                     rel="noopener"
                 >typescript</a
                 >
             </li>
+<!--            https://ts.xcatliu.com/introduction/what-is-typescript.html-->
         </ul>
         <h3>vue社区</h3>
         <ul>
+            <li>
+                <a href="https://vue3js.cn/docs/zh/guide/introduction.html" target="_blank" rel="noopener"
+                >Vue3.0文档</a
+                >
+            </li>
             <li>
                 <a href="https://vuejs.org" target="_blank" rel="noopener"
                 >Core Docs</a

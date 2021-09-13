@@ -11,6 +11,11 @@
         </ul>
         <h3>vue社区</h3>
         <ul>
+            <li>
+                <a href="https://cn.vuejs.org/v2/guide/index.html" target="_blank" rel="noopener"
+                >Vue2.0文档</a
+                >
+            </li>
             <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
             <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
             <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
