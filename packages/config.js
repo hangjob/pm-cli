@@ -5,27 +5,28 @@ const templateNames = [
         method: '/packages/template/html.js',
     },
     {
-        name: '安装品茗库vue2.0开发模板',
+        name: '安装品茗库vue2.0模板',
         dir: '/templates/vue', // 模板路径
         method: '/packages/template/vue.js', // 模板执行方法
     },
     {
-        name: '安装品茗库vue3.0开发模板',
+        name: '安装品茗库vue3.0模板',
         dir: '/templates/vue3',
         method: '/packages/template/vue3.js',
     },
     {
-        name: '安装品茗库App开发模板',
+        name: '安装品茗库App模板',
         dir: '/templates/app',
         method: '/packages/template/app.js',
     },
     {
-        name: '安装品茗库大数据开发模板',
+        name: '安装品茗库大数据模板',
         dir: '/templates/app',
         method: '/packages/template/bigdata.js',
+        hide: true,
     },
     {
-        name: '安装品茗库vue3.0-typescript开发模板',
+        name: '安装品茗库vue3.0-typescript模板',
         dir: '/templates/vue3ts',
         method: '/packages/template/vue3ts.js',
     },

@@ -23,6 +23,15 @@ const rewriteHtml = ({ targetDir, answers }) => {
     fs.writeFileSync(htmlPath, str)
 }
 
+// 判断node.js
+const nodeVersion = (v)=>{
+    let _v = process.versions.node.split('.')[0];
+    if(parseInt(_v) < v){
+       throw `node 当前版${process.version}本小于v${v}.0.0`
+    }
+}
+
 module.exports = {
     rewriteHtml,
+    nodeVersion
 }

@@ -4,6 +4,9 @@ const inquirer = require('inquirer')
 const { templateNames, templateVuex } = require('./config')
 const chalk = require('chalk')
 const createTemplate = require('./template')
+const { nodeVersion } = require('./common')
+const os = require('os')
+const userInfo = os.userInfo()
 
 module.exports = async function (name) {
     const answers = await inquirer.prompt([
@@ -15,9 +18,9 @@ module.exports = async function (name) {
                 key: i,
                 name: v.name,
                 value: v.dir,
-                hide: v.hide
-            })).filter((res)=>{
-                return res.hide === true ? false : true;
+                hide: v.hide,
+            })).filter((res) => {
+                return res.hide === true ? false : true
             }),
         },
         {
@@ -58,7 +61,7 @@ module.exports = async function (name) {
             validate: function (value) {
                 return !!value
             },
-            default: '羊先生',
+            default: userInfo.username,
         },
         {
             type: 'input',
@@ -67,7 +70,7 @@ module.exports = async function (name) {
             validate: function (value) {
                 return !!value
             },
-            default: '写点描述...',
+            default: 'Input project description',
         },
         {
             type: 'confirm',
@@ -77,12 +80,21 @@ module.exports = async function (name) {
         },
     ])
     // 拼接成完整路径
-    const _path = path.join(process.cwd(), name)
-    const targetDir = await mkdirp(_path)
     if (answers.confirm) {
+        let find = templateNames.find(item => {
+            if (item.dir && (item.dir === answers.template)) {
+                return item.node_v = 8.9
+            }
+            else {
+                return item.node_v = 12.0 // vite需要更高的版本
+            }
+        })
+        nodeVersion(find.node_v)
+        const _path = path.join(process.cwd(), name)
+        const targetDir = await mkdirp(_path)
         if (targetDir) {
             console.log(chalk.blue(`🚀   开始创建...`))
-            answers.projectName = name;
+            answers.projectName = name
             createTemplate({ targetDir, answers, projectName: name })
         }
         else {
