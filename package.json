@@ -11,8 +11,8 @@
         "email": "470193837@qq.com"
     },
     "bugs": {
-        "url": "https://github.com/hangjob/pm-cli/issues",
-        "email": "470193837@qq.com"
+        "url": "http://192.168.1.200/secrets/pm-ui-cli/issues",
+        "email": "yanghang@pminfo.cn"
     },
     "keywords": [
         "vue",
@@ -20,7 +20,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/hangjob/pm-cli"
+        "url": "http://192.168.1.200/secrets/pm-ui-cli"
     },
     "license": "MIT",
     "dependencies": {
