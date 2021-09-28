@@ -6,13 +6,14 @@ const sd = require('silly-datetime')
 const jsdom = require('jsdom')
 const { JSDOM } = jsdom
 
-function html_decode(str)
-{
-    let s = str;
-    if (str.length == 0) return "";
-    s = s.replace(/&lt;/g, "<");
-    s = s.replace(/&gt;/g, ">");
-    return s;
+function html_decode (str) {
+    let s = str
+    if (str.length == 0) {
+        return ''
+    }
+    s = s.replace(/&lt;/g, '<')
+    s = s.replace(/&gt;/g, '>')
+    return s
 }
 
 const rootPath = path.dirname(require.main.filename)
@@ -22,15 +23,18 @@ const rewriteHtml = ({ targetDir, answers }) => {
     const packPath = path.join(rootPath, 'package.json')
     const package = JSON.parse(fs.readFileSync(packPath).toString())
     const data = fs.readFileSync(htmlPath, 'utf8')
-    // const $ = cheerio.load(data, { decodeEntities: false, xmlMode: true })
+    // const $ = cheerio.load(data, { decodeEntities: false, xmlMode: true
+    // }) // 本身自带jq语法
     const dom = new JSDOM(data)
-    const $ = require('jquery')(dom.window);
+    const $ = require('jquery')(dom.window) // 自带原生操作dom，赋予jq语法
     $('head').append(`<meta name="author" content="${answers.author}"/>`)
     $('head').append(`<meta name="des" content="${answers.description}"/>`)
-    $('head').append(`<meta name="version" content="pm-cli.version.${package.version}"/>`)
+    $('head').
+        append(
+            `<meta name="version" content="pm-cli.version.${package.version}"/>`)
     const time = sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss')
     $('head').append(`<meta name="time" content="${time}"/>`)
-    let str = $("html").html();
+    let str = $('html').html()
     fs.writeFileSync(htmlPath, html_decode(str))
 }
 
