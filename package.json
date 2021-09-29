@@ -1,7 +1,7 @@
 {
-    "name": "pming-cli",
+    "name": "pm-cli",
     "version": "0.3.0",
-    "description": "pming-cli前端脚手架",
+    "description": "pm-cli前端脚手架",
     "main": "index.js",
     "bin": {
         "pm-cli": "bin.js"
